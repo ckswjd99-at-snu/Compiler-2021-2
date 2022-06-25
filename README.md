@@ -4,8 +4,8 @@ A project in SNU ECE Introduction to Compiler (430.414) lecture, at 2021 autumn.
 
 Implemented front-end of SubC compiler, which generates stack machine code.
 
-* [Grammar of SubC]()
-* [ISA of stack machine]()
+* [Grammar of SubC](https://github.com/ckswjd99/SNUCompiler-2021-2/blob/main/doc/project3-grammar.txt)
+* [ISA of stack machine](https://github.com/ckswjd99/SNUCompiler-2021-2/blob/main/doc/project4.pdf)
 
 ## Build
 ### SubC Compiler

@@ -1,0 +1,5 @@
+0.0.0           -- 20010605   + make to replace stack machine simulator
+                                used in the "Introduction to Compiler" class
+                                which we could get only binary for SUN SPARC
+                                workstations.
+

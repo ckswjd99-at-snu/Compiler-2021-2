@@ -1,0 +1,812 @@
+Grammar
+
+    0 $accept: file $end
+
+    1 inst: NEGATE
+    2     | NOT
+    3     | ABS
+    4     | ADD
+    5     | SUB
+    6     | MUL
+    7     | DIV
+    8     | MOD
+    9     | AND
+   10     | OR
+   11     | EQUAL
+   12     | NOT_EQUAL
+   13     | GREATER
+   14     | GREATER_EQUAL
+   15     | LESS
+   16     | LESS_EQUAL
+   17     | JUMP const_op
+   18     | BRANCH_TRUE const_op
+   19     | BRANCH_FALSE const_op
+   20     | EXIT
+   21     | PUSH_CONST const_op
+   22     | PUSH_REG reg
+   23     | POP_REG reg
+   24     | SHIFT_SP integer
+   25     | ASSIGN
+   26     | FETCH
+   27     | READ_INT
+   28     | READ_CHAR
+   29     | WRITE_INT
+   30     | WRITE_CHAR
+   31     | WRITE_STRING
+
+   32 state: inst NEW_LINE
+
+   33 empty_state: NEW_LINE
+
+   34 label: ID ':' NEW_LINE
+
+   35 global: ID '.' DATA INT_CONST NEW_LINE
+
+   36 string: ID '.' STRING STRING_CONST NEW_LINE
+
+   37 integer: INT_CONST
+   38        | '-' INT_CONST
+
+   39 const_op: INT_CONST
+   40         | '-' INT_CONST
+   41         | ID
+   42         | ID '+' INT_CONST
+   43         | ID '-' INT_CONST
+
+   44 reg: FP
+   45    | SP
+   46    | PC
+
+   47 file: file state
+   48     | file label
+   49     | file global
+   50     | file string
+   51     | state
+   52     | label
+   53     | empty_state
+   54     | global
+   55     | string
+
+
+Terminals, with rules where they appear
+
+    $end (0) 0
+    '+' (43) 42
+    '-' (45) 38 40 43
+    '.' (46) 35 36
+    ':' (58) 34
+    error (256)
+    INT_CONST <intVal> (258) 35 37 38 39 40 42 43
+    STRING_CONST <stringVal> (259) 36
+    NEGATE <id> (260) 1
+    NOT <id> (261) 2
+    ABS <id> (262) 3
+    ADD <id> (263) 4
+    SUB <id> (264) 5
+    MUL <id> (265) 6
+    DIV <id> (266) 7
+    MOD <id> (267) 8
+    AND <id> (268) 9
+    OR <id> (269) 10
+    EQUAL <id> (270) 11
+    NOT_EQUAL <id> (271) 12
+    GREATER <id> (272) 13
+    GREATER_EQUAL <id> (273) 14
+    LESS <id> (274) 15
+    LESS_EQUAL <id> (275) 16
+    JUMP <id> (276) 17
+    BRANCH_TRUE <id> (277) 18
+    BRANCH_FALSE <id> (278) 19
+    EXIT <id> (279) 20
+    PUSH_CONST <id> (280) 21
+    PUSH_REG <id> (281) 22
+    POP_REG <id> (282) 23
+    SHIFT_SP <id> (283) 24
+    ASSIGN <id> (284) 25
+    FETCH <id> (285) 26
+    READ_INT <id> (286) 27
+    READ_CHAR <id> (287) 28
+    WRITE_INT <id> (288) 29
+    WRITE_CHAR <id> (289) 30
+    WRITE_STRING <id> (290) 31
+    SP <id> (291) 45
+    FP <id> (292) 44
+    PC <id> (293) 46
+    ID <id> (294) 34 35 36 41 42 43
+    DATA <id> (295) 35
+    STRING <id> (296) 36
+    NEW_LINE (297) 32 33 34 35 36
+
+
+Nonterminals, with rules where they appear
+
+    $accept (47)
+        on left: 0
+    inst <instr> (48)
+        on left: 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31
+        on right: 32
+    state (49)
+        on left: 32
+        on right: 47 51
+    empty_state (50)
+        on left: 33
+        on right: 53
+    label (51)
+        on left: 34
+        on right: 48 52
+    global (52)
+        on left: 35
+        on right: 49 54
+    string (53)
+        on left: 36
+        on right: 50 55
+    integer <operand> (54)
+        on left: 37 38
+        on right: 24
+    const_op <operand> (55)
+        on left: 39 40 41 42 43
+        on right: 17 18 19 21
+    reg <operand> (56)
+        on left: 44 45 46
+        on right: 22 23
+    file (57)
+        on left: 47 48 49 50 51 52 53 54 55
+        on right: 0 47 48 49 50
+
+
+State 0
+
+    0 $accept: . file $end
+
+    NEGATE         shift, and go to state 1
+    NOT            shift, and go to state 2
+    ABS            shift, and go to state 3
+    ADD            shift, and go to state 4
+    SUB            shift, and go to state 5
+    MUL            shift, and go to state 6
+    DIV            shift, and go to state 7
+    MOD            shift, and go to state 8
+    AND            shift, and go to state 9
+    OR             shift, and go to state 10
+    EQUAL          shift, and go to state 11
+    NOT_EQUAL      shift, and go to state 12
+    GREATER        shift, and go to state 13
+    GREATER_EQUAL  shift, and go to state 14
+    LESS           shift, and go to state 15
+    LESS_EQUAL     shift, and go to state 16
+    JUMP           shift, and go to state 17
+    BRANCH_TRUE    shift, and go to state 18
+    BRANCH_FALSE   shift, and go to state 19
+    EXIT           shift, and go to state 20
+    PUSH_CONST     shift, and go to state 21
+    PUSH_REG       shift, and go to state 22
+    POP_REG        shift, and go to state 23
+    SHIFT_SP       shift, and go to state 24
+    ASSIGN         shift, and go to state 25
+    FETCH          shift, and go to state 26
+    READ_INT       shift, and go to state 27
+    READ_CHAR      shift, and go to state 28
+    WRITE_INT      shift, and go to state 29
+    WRITE_CHAR     shift, and go to state 30
+    WRITE_STRING   shift, and go to state 31
+    ID             shift, and go to state 32
+    NEW_LINE       shift, and go to state 33
+
+    inst         go to state 34
+    state        go to state 35
+    empty_state  go to state 36
+    label        go to state 37
+    global       go to state 38
+    string       go to state 39
+    file         go to state 40
+
+
+State 1
+
+    1 inst: NEGATE .
+
+    $default  reduce using rule 1 (inst)
+
+
+State 2
+
+    2 inst: NOT .
+
+    $default  reduce using rule 2 (inst)
+
+
+State 3
+
+    3 inst: ABS .
+
+    $default  reduce using rule 3 (inst)
+
+
+State 4
+
+    4 inst: ADD .
+
+    $default  reduce using rule 4 (inst)
+
+
+State 5
+
+    5 inst: SUB .
+
+    $default  reduce using rule 5 (inst)
+
+
+State 6
+
+    6 inst: MUL .
+
+    $default  reduce using rule 6 (inst)
+
+
+State 7
+
+    7 inst: DIV .
+
+    $default  reduce using rule 7 (inst)
+
+
+State 8
+
+    8 inst: MOD .
+
+    $default  reduce using rule 8 (inst)
+
+
+State 9
+
+    9 inst: AND .
+
+    $default  reduce using rule 9 (inst)
+
+
+State 10
+
+   10 inst: OR .
+
+    $default  reduce using rule 10 (inst)
+
+
+State 11
+
+   11 inst: EQUAL .
+
+    $default  reduce using rule 11 (inst)
+
+
+State 12
+
+   12 inst: NOT_EQUAL .
+
+    $default  reduce using rule 12 (inst)
+
+
+State 13
+
+   13 inst: GREATER .
+
+    $default  reduce using rule 13 (inst)
+
+
+State 14
+
+   14 inst: GREATER_EQUAL .
+
+    $default  reduce using rule 14 (inst)
+
+
+State 15
+
+   15 inst: LESS .
+
+    $default  reduce using rule 15 (inst)
+
+
+State 16
+
+   16 inst: LESS_EQUAL .
+
+    $default  reduce using rule 16 (inst)
+
+
+State 17
+
+   17 inst: JUMP . const_op
+
+    INT_CONST  shift, and go to state 41
+    ID         shift, and go to state 42
+    '-'        shift, and go to state 43
+
+    const_op  go to state 44
+
+
+State 18
+
+   18 inst: BRANCH_TRUE . const_op
+
+    INT_CONST  shift, and go to state 41
+    ID         shift, and go to state 42
+    '-'        shift, and go to state 43
+
+    const_op  go to state 45
+
+
+State 19
+
+   19 inst: BRANCH_FALSE . const_op
+
+    INT_CONST  shift, and go to state 41
+    ID         shift, and go to state 42
+    '-'        shift, and go to state 43
+
+    const_op  go to state 46
+
+
+State 20
+
+   20 inst: EXIT .
+
+    $default  reduce using rule 20 (inst)
+
+
+State 21
+
+   21 inst: PUSH_CONST . const_op
+
+    INT_CONST  shift, and go to state 41
+    ID         shift, and go to state 42
+    '-'        shift, and go to state 43
+
+    const_op  go to state 47
+
+
+State 22
+
+   22 inst: PUSH_REG . reg
+
+    SP  shift, and go to state 48
+    FP  shift, and go to state 49
+    PC  shift, and go to state 50
+
+    reg  go to state 51
+
+
+State 23
+
+   23 inst: POP_REG . reg
+
+    SP  shift, and go to state 48
+    FP  shift, and go to state 49
+    PC  shift, and go to state 50
+
+    reg  go to state 52
+
+
+State 24
+
+   24 inst: SHIFT_SP . integer
+
+    INT_CONST  shift, and go to state 53
+    '-'        shift, and go to state 54
+
+    integer  go to state 55
+
+
+State 25
+
+   25 inst: ASSIGN .
+
+    $default  reduce using rule 25 (inst)
+
+
+State 26
+
+   26 inst: FETCH .
+
+    $default  reduce using rule 26 (inst)
+
+
+State 27
+
+   27 inst: READ_INT .
+
+    $default  reduce using rule 27 (inst)
+
+
+State 28
+
+   28 inst: READ_CHAR .
+
+    $default  reduce using rule 28 (inst)
+
+
+State 29
+
+   29 inst: WRITE_INT .
+
+    $default  reduce using rule 29 (inst)
+
+
+State 30
+
+   30 inst: WRITE_CHAR .
+
+    $default  reduce using rule 30 (inst)
+
+
+State 31
+
+   31 inst: WRITE_STRING .
+
+    $default  reduce using rule 31 (inst)
+
+
+State 32
+
+   34 label: ID . ':' NEW_LINE
+   35 global: ID . '.' DATA INT_CONST NEW_LINE
+   36 string: ID . '.' STRING STRING_CONST NEW_LINE
+
+    ':'  shift, and go to state 56
+    '.'  shift, and go to state 57
+
+
+State 33
+
+   33 empty_state: NEW_LINE .
+
+    $default  reduce using rule 33 (empty_state)
+
+
+State 34
+
+   32 state: inst . NEW_LINE
+
+    NEW_LINE  shift, and go to state 58
+
+
+State 35
+
+   51 file: state .
+
+    $default  reduce using rule 51 (file)
+
+
+State 36
+
+   53 file: empty_state .
+
+    $default  reduce using rule 53 (file)
+
+
+State 37
+
+   52 file: label .
+
+    $default  reduce using rule 52 (file)
+
+
+State 38
+
+   54 file: global .
+
+    $default  reduce using rule 54 (file)
+
+
+State 39
+
+   55 file: string .
+
+    $default  reduce using rule 55 (file)
+
+
+State 40
+
+    0 $accept: file . $end
+   47 file: file . state
+   48     | file . label
+   49     | file . global
+   50     | file . string
+
+    $end           shift, and go to state 59
+    NEGATE         shift, and go to state 1
+    NOT            shift, and go to state 2
+    ABS            shift, and go to state 3
+    ADD            shift, and go to state 4
+    SUB            shift, and go to state 5
+    MUL            shift, and go to state 6
+    DIV            shift, and go to state 7
+    MOD            shift, and go to state 8
+    AND            shift, and go to state 9
+    OR             shift, and go to state 10
+    EQUAL          shift, and go to state 11
+    NOT_EQUAL      shift, and go to state 12
+    GREATER        shift, and go to state 13
+    GREATER_EQUAL  shift, and go to state 14
+    LESS           shift, and go to state 15
+    LESS_EQUAL     shift, and go to state 16
+    JUMP           shift, and go to state 17
+    BRANCH_TRUE    shift, and go to state 18
+    BRANCH_FALSE   shift, and go to state 19
+    EXIT           shift, and go to state 20
+    PUSH_CONST     shift, and go to state 21
+    PUSH_REG       shift, and go to state 22
+    POP_REG        shift, and go to state 23
+    SHIFT_SP       shift, and go to state 24
+    ASSIGN         shift, and go to state 25
+    FETCH          shift, and go to state 26
+    READ_INT       shift, and go to state 27
+    READ_CHAR      shift, and go to state 28
+    WRITE_INT      shift, and go to state 29
+    WRITE_CHAR     shift, and go to state 30
+    WRITE_STRING   shift, and go to state 31
+    ID             shift, and go to state 32
+
+    inst    go to state 34
+    state   go to state 60
+    label   go to state 61
+    global  go to state 62
+    string  go to state 63
+
+
+State 41
+
+   39 const_op: INT_CONST .
+
+    $default  reduce using rule 39 (const_op)
+
+
+State 42
+
+   41 const_op: ID .
+   42         | ID . '+' INT_CONST
+   43         | ID . '-' INT_CONST
+
+    '-'  shift, and go to state 64
+    '+'  shift, and go to state 65
+
+    $default  reduce using rule 41 (const_op)
+
+
+State 43
+
+   40 const_op: '-' . INT_CONST
+
+    INT_CONST  shift, and go to state 66
+
+
+State 44
+
+   17 inst: JUMP const_op .
+
+    $default  reduce using rule 17 (inst)
+
+
+State 45
+
+   18 inst: BRANCH_TRUE const_op .
+
+    $default  reduce using rule 18 (inst)
+
+
+State 46
+
+   19 inst: BRANCH_FALSE const_op .
+
+    $default  reduce using rule 19 (inst)
+
+
+State 47
+
+   21 inst: PUSH_CONST const_op .
+
+    $default  reduce using rule 21 (inst)
+
+
+State 48
+
+   45 reg: SP .
+
+    $default  reduce using rule 45 (reg)
+
+
+State 49
+
+   44 reg: FP .
+
+    $default  reduce using rule 44 (reg)
+
+
+State 50
+
+   46 reg: PC .
+
+    $default  reduce using rule 46 (reg)
+
+
+State 51
+
+   22 inst: PUSH_REG reg .
+
+    $default  reduce using rule 22 (inst)
+
+
+State 52
+
+   23 inst: POP_REG reg .
+
+    $default  reduce using rule 23 (inst)
+
+
+State 53
+
+   37 integer: INT_CONST .
+
+    $default  reduce using rule 37 (integer)
+
+
+State 54
+
+   38 integer: '-' . INT_CONST
+
+    INT_CONST  shift, and go to state 67
+
+
+State 55
+
+   24 inst: SHIFT_SP integer .
+
+    $default  reduce using rule 24 (inst)
+
+
+State 56
+
+   34 label: ID ':' . NEW_LINE
+
+    NEW_LINE  shift, and go to state 68
+
+
+State 57
+
+   35 global: ID '.' . DATA INT_CONST NEW_LINE
+   36 string: ID '.' . STRING STRING_CONST NEW_LINE
+
+    DATA    shift, and go to state 69
+    STRING  shift, and go to state 70
+
+
+State 58
+
+   32 state: inst NEW_LINE .
+
+    $default  reduce using rule 32 (state)
+
+
+State 59
+
+    0 $accept: file $end .
+
+    $default  accept
+
+
+State 60
+
+   47 file: file state .
+
+    $default  reduce using rule 47 (file)
+
+
+State 61
+
+   48 file: file label .
+
+    $default  reduce using rule 48 (file)
+
+
+State 62
+
+   49 file: file global .
+
+    $default  reduce using rule 49 (file)
+
+
+State 63
+
+   50 file: file string .
+
+    $default  reduce using rule 50 (file)
+
+
+State 64
+
+   43 const_op: ID '-' . INT_CONST
+
+    INT_CONST  shift, and go to state 71
+
+
+State 65
+
+   42 const_op: ID '+' . INT_CONST
+
+    INT_CONST  shift, and go to state 72
+
+
+State 66
+
+   40 const_op: '-' INT_CONST .
+
+    $default  reduce using rule 40 (const_op)
+
+
+State 67
+
+   38 integer: '-' INT_CONST .
+
+    $default  reduce using rule 38 (integer)
+
+
+State 68
+
+   34 label: ID ':' NEW_LINE .
+
+    $default  reduce using rule 34 (label)
+
+
+State 69
+
+   35 global: ID '.' DATA . INT_CONST NEW_LINE
+
+    INT_CONST  shift, and go to state 73
+
+
+State 70
+
+   36 string: ID '.' STRING . STRING_CONST NEW_LINE
+
+    STRING_CONST  shift, and go to state 74
+
+
+State 71
+
+   43 const_op: ID '-' INT_CONST .
+
+    $default  reduce using rule 43 (const_op)
+
+
+State 72
+
+   42 const_op: ID '+' INT_CONST .
+
+    $default  reduce using rule 42 (const_op)
+
+
+State 73
+
+   35 global: ID '.' DATA INT_CONST . NEW_LINE
+
+    NEW_LINE  shift, and go to state 75
+
+
+State 74
+
+   36 string: ID '.' STRING STRING_CONST . NEW_LINE
+
+    NEW_LINE  shift, and go to state 76
+
+
+State 75
+
+   35 global: ID '.' DATA INT_CONST NEW_LINE .
+
+    $default  reduce using rule 35 (global)
+
+
+State 76
+
+   36 string: ID '.' STRING STRING_CONST NEW_LINE .
+
+    $default  reduce using rule 36 (string)

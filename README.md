@@ -1,4 +1,4 @@
-# SNUCompiler 2021-2
+# Compiler 2021-2
 
 A project in SNU ECE Introduction to Compiler (430.414) lecture, at 2021 autumn.
 
